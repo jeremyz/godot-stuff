@@ -1,0 +1,175 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://map/Map.gd" type="Script" id=1]
+[ext_resource path="res://map/map.jpg" type="Texture" id=2]
+[ext_resource path="res://map/Camera.gd" type="Script" id=3]
+[ext_resource path="res://map/Gestures.gd" type="Script" id=4]
+[ext_resource path="res://map/Location.tscn" type="PackedScene" id=5]
+[ext_resource path="res://map/CombatPosition.tscn" type="PackedScene" id=6]
+
+[node name="Map" type="Node2D"]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+centered = false
+
+[node name="Camera" type="Camera2D" parent="."]
+script = ExtResource( 3 )
+margin = Vector2( 10, 10 )
+
+[node name="Tween" type="Tween" parent="Camera"]
+
+[node name="Gestures" type="Node2D" parent="."]
+script = ExtResource( 4 )
+
+[node name="Timer" type="Timer" parent="Gestures"]
+
+[node name="Locations" type="Node" parent="."]
+
+[node name="NorthTerrace" parent="Locations" instance=ExtResource( 5 )]
+position = Vector2( 1061.82, 464.6 )
+rotation = -0.287979
+dimension = Vector2( 360, 95 )
+
+[node name="Keep" parent="Locations" instance=ExtResource( 5 )]
+position = Vector2( 993.942, 703.634 )
+rotation = -0.287979
+dimension = Vector2( 108, 107 )
+
+[node name="GreatHall" parent="Locations" instance=ExtResource( 5 )]
+position = Vector2( 1287.44, 617.362 )
+rotation = -0.287979
+dimension = Vector2( 188, 107 )
+
+[node name="SouthTerrace" parent="Locations" instance=ExtResource( 5 )]
+position = Vector2( 1263.76, 939.306 )
+rotation = -0.287979
+dimension = Vector2( 300, 190 )
+
+[node name="GateHouse" parent="Locations" instance=ExtResource( 5 )]
+position = Vector2( 2353.49, 724.771 )
+rotation = 0.514872
+dimension = Vector2( 150, 117 )
+
+[node name="BesottenJenny" parent="Locations" instance=ExtResource( 5 )]
+position = Vector2( 2629.04, 838.112 )
+dimension = Vector2( 70, 260 )
+
+[node name="Cellar" parent="Locations" instance=ExtResource( 5 )]
+position = Vector2( 195.449, 1302 )
+dimension = Vector2( 180, 180 )
+
+[node name="CombatPositions" type="Node" parent="."]
+
+[node name="CP-01" parent="CombatPositions" instance=ExtResource( 6 )]
+position = Vector2( 778.852, 552.176 )
+rotation = -0.287979
+
+[node name="CP-02" parent="CombatPositions" instance=ExtResource( 6 )]
+position = Vector2( 1082.46, 465.791 )
+rotation = -0.287979
+
+[node name="CP-03" parent="CombatPositions" instance=ExtResource( 6 )]
+position = Vector2( 1207.36, 419.002 )
+rotation = -0.287979
+
+[node name="CP-04" parent="CombatPositions" instance=ExtResource( 6 )]
+position = Vector2( 1343.59, 339.328 )
+rotation = -0.287979
+
+[node name="CP-05" parent="CombatPositions" instance=ExtResource( 6 )]
+position = Vector2( 929.321, 666.158 )
+rotation = -0.287979
+
+[node name="CP-06" parent="CombatPositions" instance=ExtResource( 6 )]
+position = Vector2( 1030.85, 636.047 )
+rotation = -0.287979
+
+[node name="CP-07" parent="CombatPositions" instance=ExtResource( 6 )]
+position = Vector2( 959.542, 769.099 )
+rotation = -0.287979
+
+[node name="CP-08" parent="CombatPositions" instance=ExtResource( 6 )]
+position = Vector2( 1061.72, 738.225 )
+rotation = -0.287979
+
+[node name="CP-09" parent="CombatPositions" instance=ExtResource( 6 )]
+position = Vector2( 1237.41, 574.299 )
+rotation = -0.287979
+
+[node name="CP-10" parent="CombatPositions" instance=ExtResource( 6 )]
+position = Vector2( 1268.28, 676.477 )
+rotation = -0.287979
+
+[node name="CP-11" parent="CombatPositions" instance=ExtResource( 6 )]
+position = Vector2( 1399.13, 527.989 )
+rotation = -0.287979
+
+[node name="CP-12" parent="CombatPositions" instance=ExtResource( 6 )]
+position = Vector2( 1430, 630.166 )
+rotation = -0.287979
+
+[node name="CP-13" parent="CombatPositions" instance=ExtResource( 6 )]
+position = Vector2( 1272.69, 827.171 )
+rotation = -0.287979
+
+[node name="CP-14" parent="CombatPositions" instance=ExtResource( 6 )]
+position = Vector2( 1418.97, 805.118 )
+rotation = -0.275049
+
+[node name="CP-15" parent="CombatPositions" instance=ExtResource( 6 )]
+position = Vector2( 1094.8, 982.275 )
+rotation = -0.604214
+
+[node name="CP-16" parent="CombatPositions" instance=ExtResource( 6 )]
+position = Vector2( 1271.22, 1052.84 )
+rotation = -0.604214
+
+[node name="CP-17" parent="CombatPositions" instance=ExtResource( 6 )]
+position = Vector2( 2324.09, 646.786 )
+rotation = 0.510945
+
+[node name="CP-18" parent="CombatPositions" instance=ExtResource( 6 )]
+position = Vector2( 2271.15, 740.455 )
+rotation = 0.510945
+
+[node name="CP-19" parent="CombatPositions" instance=ExtResource( 6 )]
+position = Vector2( 2445.45, 711.947 )
+rotation = 0.510945
+
+[node name="CP-20" parent="CombatPositions" instance=ExtResource( 6 )]
+position = Vector2( 2392.51, 807.244 )
+rotation = 0.510945
+
+[node name="CP-21" parent="CombatPositions" instance=ExtResource( 6 )]
+position = Vector2( 2614.06, 634.569 )
+
+[node name="CP-22" parent="CombatPositions" instance=ExtResource( 6 )]
+position = Vector2( 2614.06, 742.084 )
+
+[node name="CP-23" parent="CombatPositions" instance=ExtResource( 6 )]
+position = Vector2( 2614.06, 930.234 )
+
+[node name="CP-24" parent="CombatPositions" instance=ExtResource( 6 )]
+position = Vector2( 2614.06, 1039.38 )
+
+[node name="CP-25" parent="CombatPositions" instance=ExtResource( 6 )]
+position = Vector2( 86.0643, 1231.59 )
+
+[node name="CP-26" parent="CombatPositions" instance=ExtResource( 6 )]
+position = Vector2( 193.462, 1232.49 )
+
+[node name="CP-27" parent="CombatPositions" instance=ExtResource( 6 )]
+position = Vector2( 301.762, 1232.49 )
+
+[node name="CP-28" parent="CombatPositions" instance=ExtResource( 6 )]
+position = Vector2( 139.312, 1338.98 )
+
+[node name="CP-29" parent="CombatPositions" instance=ExtResource( 6 )]
+position = Vector2( 246.709, 1339.89 )
+
