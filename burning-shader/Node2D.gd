@@ -5,7 +5,7 @@ var time = 0.0;
 var num = 1;
 
 func _ready():
-	for n in range(5): img.append(load("res://page%d.png" % n))
+	for n in range(4): img.append(load("res://page%d.png" % n))
 	$TextureRect.material.set_shader_param("tex1", img[0])
 
 func math():
