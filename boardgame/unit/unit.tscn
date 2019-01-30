@@ -1,0 +1,51 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://unit/unit.gd" type="Script" id=1]
+[ext_resource path="res://unit/burning.shader" type="Shader" id=2]
+[ext_resource path="res://unit/00_pawn.png" type="Texture" id=3]
+[ext_resource path="res://unit/01_spent.png" type="Texture" id=4]
+[ext_resource path="res://unit/desintegrate.shader" type="Shader" id=5]
+[ext_resource path="res://unit/02_selected.png" type="Texture" id=6]
+
+[sub_resource type="ShaderMaterial" id=1]
+
+shader = ExtResource( 2 )
+shader_param/time = 0.0
+
+[sub_resource type="ShaderMaterial" id=2]
+
+shader = ExtResource( 5 )
+shader_param/amount = 0.0
+
+[sub_resource type="CircleShape2D" id=3]
+
+radius = 44.3143
+
+[node name="Unit" type="Area2D"]
+position = Vector2( 377.253, 273.483 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Pawn" type="Sprite" parent="."]
+material = SubResource( 1 )
+texture = ExtResource( 3 )
+
+[node name="Spent" type="Sprite" parent="."]
+visible = false
+texture = ExtResource( 4 )
+
+[node name="Sprite" type="Sprite" parent="."]
+material = SubResource( 2 )
+
+[node name="Selected" type="Sprite" parent="."]
+visible = false
+texture = ExtResource( 6 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
+shape = SubResource( 3 )
+
+[node name="Tween" type="Tween" parent="."]
+
