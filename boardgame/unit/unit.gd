@@ -73,5 +73,9 @@ func _die():
 
 func _on_mouse_entered(): mouseIn = true
 func _on_mouse_exited():  mouseIn = false
-func _on_area_entered(a): _drop_zone = a
-func _on_area_exited(a): _drop_zone = null
+func _on_area_exited(a):
+	if a == _drop_zone:
+		_drop_zone = null
+func _on_area_entered(a):
+	if a.is_in_group("drop_zone"):
+		_drop_zone = a

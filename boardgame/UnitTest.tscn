@@ -41,7 +41,9 @@ margin_bottom = 329.393
 texture_normal = ExtResource( 4 )
 texture_pressed = ExtResource( 5 )
 
-[node name="DropZone" type="Area2D" parent="."]
+[node name="DropZone" type="Area2D" parent="." groups=[
+"drop_zone",
+]]
 position = Vector2( 639, 468 )
 
 [node name="Sprite" type="Sprite" parent="DropZone"]
