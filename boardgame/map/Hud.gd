@@ -9,7 +9,6 @@ func _ready():
 		cam_btns_state.append(btn.pressed)
 		btn.connect("toggled", self, "_on_cam_up")
 
-
 func _on_free_move():
 	var btns = get_tree().get_nodes_in_group("cam_btns")
 	for i in btns.size():

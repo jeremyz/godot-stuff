@@ -29,9 +29,8 @@ var coords = {
 	"GateHouse" : Vector2(2360, 726),
 	"BesottenJenny" : Vector2(2632, 832)
 	}
-	
-func _ready():
-	pass
+
+func _ready(): pass
 
 func configure_with(map):
 	textureSize = map.texture.get_size()

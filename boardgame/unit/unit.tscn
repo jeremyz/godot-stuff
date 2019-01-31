@@ -44,7 +44,6 @@ visible = false
 texture = ExtResource( 6 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 shape = SubResource( 3 )
 
 [node name="Tween" type="Tween" parent="."]

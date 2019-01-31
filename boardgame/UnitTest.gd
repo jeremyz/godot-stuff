@@ -1,6 +1,5 @@
 extends Node2D
 
-
 func _ready():
 	$CanvasLayer/Spent.connect("toggled", self, "_on_spent")
 	$CanvasLayer/HitButton.connect("pressed", self, "_on_hit")
