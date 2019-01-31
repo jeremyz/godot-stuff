@@ -22,6 +22,7 @@ signal on_free_move
 # $camera.drag_margin_v_enabled = false
 
 var coords = {
+	"Cellar" : Vector2(195, 1288),
 	"NorthTerrace" : Vector2(1045, 472),
 	"Keep" : Vector2(995, 703),
 	"GreatHall" : Vector2(1280, 620),
