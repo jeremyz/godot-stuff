@@ -40,20 +40,22 @@ func _on_tween_completed(a, b):
 
 func _input(event):
 	if mouseIn && event is InputEventMouseButton && event.is_pressed():
-		_set_selected(true)
+		rotation = 0
 		dragging = true
-		#get_tree().set_input_as_handled() IT DOES KILL IT ?!?!
-
-func _process(delta):
-	if dragging:
+		_set_selected(true)
+		get_tree().set_input_as_handled()
+	elif dragging && InputEventMouseMotion:
 		if Input.is_mouse_button_pressed(BUTTON_LEFT):
 			position = get_global_mouse_position()
 		else:
-			_set_selected(false)
 			dragging = false
+			_set_selected(false)
 			if _drop_zone:
 				position = _drop_zone.position
-	if dying: _die()
+				rotation = _drop_zone.rotation
+		get_tree().set_input_as_handled()
+
+func _process(delta): if dying: _die()
 
 func _set_selected(v):
 	$Selected.texture = _selected
