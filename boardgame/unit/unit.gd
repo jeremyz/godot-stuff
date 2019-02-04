@@ -1,3 +1,5 @@
+#warning-ignore-all:return_value_discarded
+#warning-ignore-all:unused_argument
 extends Area2D
 
 export(Texture) var sprite

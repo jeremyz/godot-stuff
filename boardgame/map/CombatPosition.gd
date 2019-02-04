@@ -1,3 +1,4 @@
+#warning-ignore-all:return_value_discarded
 extends Area2D
 
 func _ready():

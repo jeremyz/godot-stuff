@@ -1,3 +1,4 @@
+#warning-ignore-all:return_value_discarded
 extends Node
 
 func _ready():
