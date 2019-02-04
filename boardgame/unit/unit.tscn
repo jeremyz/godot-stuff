@@ -19,7 +19,7 @@ shader_param/amount = 0.0
 
 [sub_resource type="CircleShape2D" id=3]
 
-radius = 44.3143
+radius = 40.0
 
 [node name="Unit" type="Area2D"]
 position = Vector2( 377.253, 273.483 )
@@ -39,7 +39,7 @@ texture = ExtResource( 4 )
 [node name="Sprite" type="Sprite" parent="."]
 material = SubResource( 2 )
 
-[node name="Selected" type="Sprite" parent="."]
+[node name="Overlay" type="Sprite" parent="."]
 visible = false
 texture = ExtResource( 6 )
 
