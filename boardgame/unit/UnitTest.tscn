@@ -1,11 +1,11 @@
 [gd_scene load_steps=8 format=2]
 
-[ext_resource path="res://UnitTest.gd" type="Script" id=1]
-[ext_resource path="res://unit/btn_hit.png" type="Texture" id=2]
-[ext_resource path="res://unit/btn_hit_pressed.png" type="Texture" id=3]
-[ext_resource path="res://unit/btn_death.png" type="Texture" id=4]
-[ext_resource path="res://unit/btn_death_pressed.png" type="Texture" id=5]
-[ext_resource path="res://unit/drop_zone.png" type="Texture" id=6]
+[ext_resource path="res://unit/UnitTest.gd" type="Script" id=1]
+[ext_resource path="res://unit/assets/btn_hit.png" type="Texture" id=2]
+[ext_resource path="res://unit/assets/btn_hit_pressed.png" type="Texture" id=3]
+[ext_resource path="res://unit/assets/btn_death.png" type="Texture" id=4]
+[ext_resource path="res://unit/assets/btn_death_pressed.png" type="Texture" id=5]
+[ext_resource path="res://unit/assets/drop_zone.png" type="Texture" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 

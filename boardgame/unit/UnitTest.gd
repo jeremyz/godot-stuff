@@ -1,18 +1,17 @@
 extends Node2D
 
-onready var mine = add_unit(128, 128)
+onready var mine = add_unit(load("res://unit/USUnit.tscn") , 256, 256)
 
 func _ready():
 	mine.position = Vector2(300, 300)
-	add_unit(256, 0).position = Vector2(150, 150)
+	add_unit(load("res://unit/GEUnit.tscn"), 256, 0).position = Vector2(150, 150)
 	$CanvasLayer/Spent.connect("toggled", self, "_on_spent")
 	$CanvasLayer/HitButton.connect("pressed", self, "_on_hit")
 	$CanvasLayer/KillButton.connect("pressed", self, "_on_kill")
 
-func add_unit(x, y):
-	var scene = load("res://unit/unit.tscn")
-	var unit = scene.instance()
-	unit.set_texture(x, y, 128, 128, load("res://unit/units.png"))
+func add_unit(kls, x, y):
+	var unit = kls.instance()
+	unit.set_body(x, y, 128, 128, load("res://unit/assets/units.png"))
 	add_child(unit)
 	return unit
 

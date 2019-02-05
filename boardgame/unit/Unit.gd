@@ -2,6 +2,8 @@
 #warning-ignore-all:unused_argument
 extends Area2D
 
+class_name Unit, "res://icon.png"
+
 var freezed = false
 var mouse_in = false
 var dragging = false
@@ -10,23 +12,21 @@ var dying = false
 var death_time = 0
 var drop_zone = null
 
-onready var selected_tex = load("res://unit/02_selected.png")
-onready var hit_tex = load("res://unit/03_hit.png")
-onready var overlay = $Overlay
+onready var hit = $Overlays/Hit
 
 func _ready():
 	$Tween.connect("tween_completed", self, "_on_tween_completed")
 	connect("mouse_entered", self, "_on_mouse_entered")
 	connect("mouse_exited", self, "_on_mouse_exited")
 	connect("area_entered", self, "_on_area_entered")
-	$Sprite.material = $Sprite.material.duplicate(true)
+	$Body.material = $Body.material.duplicate(true)
 	$Pawn.material = $Pawn.material.duplicate(true)
 
-func set_texture(x, y, w, h, tex):
-	var sprite = $Sprite
-	sprite.texture = tex
-	sprite.region_enabled = true
-	sprite.region_rect = Rect2(x, y, w, h)
+func set_body(x, y, w, h, tex):
+	var body = $Body
+	body.texture = tex
+	body.region_enabled = true
+	body.region_rect = Rect2(x, y, w, h) 
 
 func set_freezed(f):
 	freezed = f
@@ -35,26 +35,26 @@ func kill():
 	dying = true
 
 func set_spent(v):
-	$Spent.visible = v
+	$SubOverlays/Spent.visible = v
 
 func hit():
-	overlay.texture = hit_tex
-	overlay.visible = true
+	hit.modulate.a = 0
+	hit.visible = true
 	_do_hit(0.6, 0.2, true)
 
 func _do_hit(to, time, blink):
 	reverse = blink
-	var v0 = overlay.modulate
-	var v1 = overlay.modulate
+	var v0 = hit.modulate
+	var v1 = hit.modulate
 	v1.a = to
-	$Tween.interpolate_property(overlay, "modulate", v0, v1, time, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
+	$Tween.interpolate_property(hit, "modulate", v0, v1, time, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
 	$Tween.start()
 
 func _on_tween_completed(a, b):
 	if reverse:
 		_do_hit(0, 0.2, false)
 	else:
-		overlay.visible = false
+		hit.visible = false
 
 func _input(event):
 	if freezed:
@@ -82,18 +82,16 @@ func _process(delta):
 		_die()
 
 func _set_selected(v):
-	overlay.texture = selected_tex
-	overlay.visible = v
-	overlay.modulate.a = 1
+	$Overlays/Selected.visible = v
 
 func _die():
 	death_time += 0.025
 	if death_time >= 4.0:
 		death_time = 0
 		dying = false
-	$Spent.modulate.a = (1 - death_time / 2.0)
+	$SubOverlays/Spent.modulate.a = (1 - death_time / 2.0)
 	$Pawn.material.set_shader_param("time", death_time)
-	$Sprite.material.set_shader_param("amount", pow(death_time, 4))
+	$Body.material.set_shader_param("amount", pow(death_time, 4))
 
 func _on_mouse_entered():
 	mouse_in = true
