@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://UnitTest.gd" type="Script" id=1]
 [ext_resource path="res://unit/btn_hit.png" type="Texture" id=2]
@@ -6,8 +6,6 @@
 [ext_resource path="res://unit/btn_death.png" type="Texture" id=4]
 [ext_resource path="res://unit/btn_death_pressed.png" type="Texture" id=5]
 [ext_resource path="res://unit/drop_zone.png" type="Texture" id=6]
-[ext_resource path="res://unit/unit.tscn" type="PackedScene" id=7]
-[ext_resource path="res://unit/unit.png" type="Texture" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -51,7 +49,4 @@ texture = ExtResource( 6 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DropZone"]
 shape = SubResource( 1 )
-
-[node name="Unit" parent="." instance=ExtResource( 7 )]
-sprite = ExtResource( 8 )
 

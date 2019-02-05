@@ -1,13 +1,29 @@
 extends Node2D
 
+onready var mine = add_unit(128, 128)
+
 func _ready():
+	mine.position = Vector2(300, 300)
+	add_unit(256, 0).position = Vector2(150, 150)
 	$CanvasLayer/Spent.connect("toggled", self, "_on_spent")
 	$CanvasLayer/HitButton.connect("pressed", self, "_on_hit")
 	$CanvasLayer/KillButton.connect("pressed", self, "_on_kill")
 
-func _on_spent(value): $Unit.set_spent(value)
-func _on_hit(): $Unit.hit()
-func _on_kill(): $Unit.kill()
+func add_unit(x, y):
+	var scene = load("res://unit/unit.tscn")
+	var unit = scene.instance()
+	unit.set_texture(x, y, 128, 128, load("res://unit/units.png"))
+	add_child(unit)
+	return unit
+
+func _on_spent(value):
+	mine.set_spent(value)
+
+func _on_hit():
+	mine.hit()
+
+func _on_kill():
+	mine.kill()
 
 func _input(event):
 	if event is InputEventKey:

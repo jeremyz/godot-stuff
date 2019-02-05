@@ -2,7 +2,7 @@
 
 [ext_resource path="res://unit/unit.gd" type="Script" id=1]
 [ext_resource path="res://unit/burning.shader" type="Shader" id=2]
-[ext_resource path="res://unit/00_pawn.png" type="Texture" id=3]
+[ext_resource path="res://unit/units.png" type="Texture" id=3]
 [ext_resource path="res://unit/01_spent.png" type="Texture" id=4]
 [ext_resource path="res://unit/desintegrate.shader" type="Shader" id=5]
 [ext_resource path="res://unit/02_selected.png" type="Texture" id=6]
@@ -22,7 +22,6 @@ shader_param/amount = 0.0
 radius = 40.0
 
 [node name="Unit" type="Area2D"]
-position = Vector2( 377.253, 273.483 )
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_group_": true
@@ -31,9 +30,13 @@ __meta__ = {
 [node name="Pawn" type="Sprite" parent="."]
 material = SubResource( 1 )
 texture = ExtResource( 3 )
+region_enabled = true
+region_rect = Rect2( 0, 384, 128, 128 )
 
 [node name="Spent" type="Sprite" parent="."]
 visible = false
+position = Vector2( -2.97487, 0 )
+scale = Vector2( 1.10997, 1 )
 texture = ExtResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="."]
@@ -41,6 +44,8 @@ material = SubResource( 2 )
 
 [node name="Overlay" type="Sprite" parent="."]
 visible = false
+position = Vector2( -2.71198, -3.22941 )
+scale = Vector2( 1.11229, 1.11124 )
 texture = ExtResource( 6 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

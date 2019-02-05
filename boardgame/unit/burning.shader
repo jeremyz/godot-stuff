@@ -21,9 +21,9 @@ float noise( vec2 p) {
 float fbm(vec2 p) {
     float v = 0.0;
     v += noise(p * 1.0) * .5;
-    // v += noise(p * 2.0) * .25;
-    // v += noise(p * 4.0) * .125;
-    // v += noise(p * 4.0) * .0625;
+    v += noise(p * 2.0) * .25;
+    v += noise(p * 4.0) * .125;
+    v += noise(p * 4.0) * .0625;
     return v;
 }
 

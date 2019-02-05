@@ -2,8 +2,7 @@
 #warning-ignore-all:unused_argument
 extends Area2D
 
-export(Texture) var sprite
-
+var freezed = false
 var mouse_in = false
 var dragging = false
 var reverse = false
@@ -13,15 +12,24 @@ var drop_zone = null
 
 onready var selected_tex = load("res://unit/02_selected.png")
 onready var hit_tex = load("res://unit/03_hit.png")
-onready var tween = $Tween
 onready var overlay = $Overlay
 
 func _ready():
-	$Sprite.texture = sprite
-	tween.connect("tween_completed", self, "_on_tween_completed")
+	$Tween.connect("tween_completed", self, "_on_tween_completed")
 	connect("mouse_entered", self, "_on_mouse_entered")
 	connect("mouse_exited", self, "_on_mouse_exited")
 	connect("area_entered", self, "_on_area_entered")
+	$Sprite.material = $Sprite.material.duplicate(true)
+	$Pawn.material = $Pawn.material.duplicate(true)
+
+func set_texture(x, y, w, h, tex):
+	var sprite = $Sprite
+	sprite.texture = tex
+	sprite.region_enabled = true
+	sprite.region_rect = Rect2(x, y, w, h)
+
+func set_freezed(f):
+	freezed = f
 
 func kill():
 	dying = true
@@ -39,8 +47,8 @@ func _do_hit(to, time, blink):
 	var v0 = overlay.modulate
 	var v1 = overlay.modulate
 	v1.a = to
-	tween.interpolate_property(overlay, "modulate", v0, v1, time, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
-	tween.start()
+	$Tween.interpolate_property(overlay, "modulate", v0, v1, time, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
+	$Tween.start()
 
 func _on_tween_completed(a, b):
 	if reverse:
@@ -49,6 +57,8 @@ func _on_tween_completed(a, b):
 		overlay.visible = false
 
 func _input(event):
+	if freezed:
+		return
 	if mouse_in && event is InputEventMouseButton && event.is_pressed():
 		rotation = 0
 		dragging = true
