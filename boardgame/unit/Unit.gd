@@ -2,7 +2,7 @@
 #warning-ignore-all:unused_argument
 extends Area2D
 
-class_name Unit, "res://icon.png"
+class_name Unit, "res://unit/assets/unit.png"
 
 var freezed = false
 var mouse_in = false
