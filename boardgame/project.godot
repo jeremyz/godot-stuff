@@ -13,9 +13,15 @@ _global_script_classes=[ {
 "class": "Unit",
 "language": "GDScript",
 "path": "res://unit/Unit.gd"
+}, {
+"base": "Container",
+"class": "UnitContainer",
+"language": "GDScript",
+"path": "res://unit/UntiContainer.gd"
 } ]
 _global_script_class_icons={
 "Unit": "res://unit/assets/unit.png",
+"UnitContainer": "res://unit/assets/unit-container.png"
 }
 
 [application]

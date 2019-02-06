@@ -8,6 +8,27 @@ func _ready():
 	for btn in get_tree().get_nodes_in_group("cam_btns"):
 		cam_btns_state.append(btn.pressed)
 		btn.connect("toggled", self, "_on_cam_up")
+	load_units()
+
+func load_units():
+	var us = load("res://unit/USUnit.tscn")
+	var ge = load("res://unit/GEUnit.tscn")
+	var tex = load("res://unit/assets/units.png")
+	var unit
+	var n = 0
+	var cont = $Container
+	for y in 3:
+		for x in 4:
+			if n < 6:
+				unit = ge.instance()
+			else:
+				unit = us.instance()
+			n += 1
+			unit.set_body(x * 128, y * 128, 128, 128, tex)
+			unit.position = Vector2(32, 32)
+			unit.scale = Vector2(0.5, 0.5)
+			unit.set_freezed(true)
+			cont.add(unit, 64, 64)
 
 func _on_free_move():
 	var btns = get_tree().get_nodes_in_group("cam_btns")

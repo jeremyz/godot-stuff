@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://hud/Hud.gd" type="Script" id=1]
 [ext_resource path="res://hud/cameras.png" type="Texture" id=2]
 [ext_resource path="res://hud/CameraBtn.tscn" type="PackedScene" id=3]
+[ext_resource path="res://unit/UntiContainer.gd" type="Script" id=4]
 
 [node name="Hud" type="CanvasLayer"]
 script = ExtResource( 1 )
@@ -58,4 +59,15 @@ margin_left = 360.0
 margin_top = -42.0
 margin_right = 402.0
 margin_bottom = 0.0
+
+[node name="Container" type="Container" parent="."]
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+margin_left = -367.0
+margin_top = -151.0
+margin_right = 385.0
+margin_bottom = -86.0
+script = ExtResource( 4 )
 
