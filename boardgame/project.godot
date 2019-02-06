@@ -30,9 +30,10 @@ config/name="Boardgame"
 run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
 
-[input_devices]
+[display]
 
-pointing/emulate_touch_from_mouse=true
+window/stretch/mode="viewport"
+window/stretch/aspect="keep"
 
 [rendering]
 
