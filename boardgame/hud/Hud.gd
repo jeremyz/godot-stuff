@@ -16,7 +16,7 @@ func load_units():
 	var tex = load("res://unit/assets/units.png")
 	var unit
 	var n = 0
-	var cont = $Container
+	var cont = $UnitContainer
 	for y in 3:
 		for x in 4:
 			if n < 6:
@@ -25,9 +25,6 @@ func load_units():
 				unit = us.instance()
 			n += 1
 			unit.set_body(x * 128, y * 128, 128, 128, tex)
-			unit.position = Vector2(32, 32)
-			unit.scale = Vector2(0.5, 0.5)
-			unit.set_freezed(true)
 			cont.add(unit, 64, 64)
 
 func _on_free_move():
