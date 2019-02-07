@@ -1,6 +1,6 @@
 extends Node2D
 
-onready var mine = add_unit(load("res://unit/USUnit.tscn") , 256, 256)
+onready var mine = add_unit(load("res://unit/USUnit.tscn"), 256, 256)
 
 func _ready():
 	mine.position = Vector2(300, 300)

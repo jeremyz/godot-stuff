@@ -12,7 +12,10 @@ var dying = false
 var death_time = 0
 var drop_zone = null
 
-onready var hit = $Overlays/Hit
+onready var hit_overlay = $Overlays/Hit
+
+signal dropped_in (unit)
+signal dropped_out (unit)
 
 func _ready():
 	$Tween.connect("tween_completed", self, "_on_tween_completed")
@@ -28,33 +31,38 @@ func set_body(x, y, w, h, tex):
 	body.region_enabled = true
 	body.region_rect = Rect2(x, y, w, h) 
 
-func set_freezed(f):
-	freezed = f
-
 func kill():
 	dying = true
+
+func set_freezed(f):
+	freezed = f
 
 func set_spent(v):
 	$SubOverlays/Spent.visible = v
 
+func set_dragging():
+	freezed = false
+	dragging = true
+	_set_selected(true)
+
 func hit():
-	hit.modulate.a = 0
-	hit.visible = true
+	hit_overlay.visible = true
+	hit_overlay.modulate.a = 0
 	_do_hit(0.6, 0.2, true)
 
 func _do_hit(to, time, blink):
 	reverse = blink
-	var v0 = hit.modulate
-	var v1 = hit.modulate
+	var v0 = hit_overlay.modulate
+	var v1 = hit_overlay.modulate
 	v1.a = to
-	$Tween.interpolate_property(hit, "modulate", v0, v1, time, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
+	$Tween.interpolate_property(hit_overlay, "modulate", v0, v1, time, Tween.TRANS_SINE, Tween.EASE_IN_OUT)
 	$Tween.start()
 
 func _on_tween_completed(a, b):
 	if reverse:
 		_do_hit(0, 0.2, false)
 	else:
-		hit.visible = false
+		hit_overlay.visible = false
 
 func _input(event):
 	if freezed:
@@ -73,8 +81,10 @@ func _input(event):
 			if drop_zone and overlaps_area(drop_zone):
 				position = drop_zone.position
 				rotation = drop_zone.rotation
+				emit_signal("dropped_in", self)
 			else:
 				drop_zone = null
+				emit_signal("dropped_out", self)
 		get_tree().set_input_as_handled()
 
 func _process(delta):
