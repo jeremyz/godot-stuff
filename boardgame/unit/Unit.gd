@@ -42,10 +42,13 @@ func set_freezed(f):
 func set_spent(v):
 	$SubOverlays/Spent.visible = v
 
+func set_selected(v):
+	$Overlays/Selected.visible = v
+
 func set_dragging():
 	freezed = false
 	dragging = true
-	_set_selected(true)
+	set_selected(true)
 
 func hit():
 	hit_overlay.visible = true
@@ -72,14 +75,14 @@ func _input(event):
 	if mouse_in && event is InputEventMouseButton && event.is_pressed():
 		rotation = 0
 		dragging = true
-		_set_selected(true)
+		set_selected(true)
 		get_tree().set_input_as_handled()
 	elif dragging && InputEventMouseMotion:
 		if Input.is_mouse_button_pressed(BUTTON_LEFT):
 			position = get_global_mouse_position()
 		else:
 			dragging = false
-			_set_selected(false)
+			set_selected(false)
 			if drop_zone and overlaps_area(drop_zone):
 				position = drop_zone.position
 				rotation = drop_zone.rotation
@@ -97,9 +100,6 @@ func _input(event):
 func _process(delta):
 	if dying:
 		_die()
-
-func _set_selected(v):
-	$Overlays/Selected.visible = v
 
 func _die():
 	death_time += 0.025
