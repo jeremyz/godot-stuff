@@ -45,4 +45,4 @@ func _on_cam_up(val):
 			print("EMIT %s" % btns[i].name)
 			emit_signal("on_cam_btn", btns[i].name)
 	if not val:
-		emit_signal("on_cam_btn", "HOME")
+		emit_signal("on_cam_btn", "home")

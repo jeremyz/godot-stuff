@@ -99,26 +99,30 @@ func clamp_pos(pos, z):
 	return pos
 
 func _on_cam_btn(action):
-	if action == "HOME":
+	if action == "home":
 		move_to(map_center, zoom_boundaries.y, duration)
 	else:
 		move_to(coords[action], zoom_boundaries.x, duration)
 
 func _on_gesture(action, param):
 	emit_signal("on_free_move")
-	if action == "HOME":
+	if action == "home":
 		move_to(map_center, zoom_boundaries.y, duration)
-	elif action == "MOVE_TO":
+	elif action == "move_to":
 		move_to(param - map_position, zoom.x, duration)
-	elif action == "ZOOM_IN_TO":
+	elif action == "zoom_in_to":
 		move_to(param - map_position, zoom.x - step, duration)
-	elif action == "ZOOM_OUT_FROM":
+	elif action == "zoom_out_from":
 		move_to(param - map_position, zoom.x + step, duration)
-	elif action == "LOOK_AT":
+	elif action == "look_at":
 		look_at(param)
-	elif action == "ZOOM_AT":
+	elif action == "zoom_at":
 		zoom_at(param)
-	elif action == "Magnify":
+	elif action == "touch":
+		print("TOUCH not implemented yet")
+	elif action == "drag":
+		print("DRAG not implemented yet")
+	elif action == "magnify":
 		if param > 1.0:
 			zoom_at(zoom.x - (step / magnify_factor))
 		else:
