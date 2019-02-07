@@ -11,11 +11,13 @@ var reverse = false
 var dying = false
 var death_time = 0
 var drop_zone = null
+var last_drop_zone = null
 
 onready var hit_overlay = $Overlays/Hit
 
 signal dropped_in (unit)
 signal dropped_out (unit)
+signal dropped_canceled (unit)
 
 func _ready():
 	$Tween.connect("tween_completed", self, "_on_tween_completed")
@@ -81,7 +83,12 @@ func _input(event):
 			if drop_zone and overlaps_area(drop_zone):
 				position = drop_zone.position
 				rotation = drop_zone.rotation
+				last_drop_zone = drop_zone
 				emit_signal("dropped_in", self)
+			elif last_drop_zone:
+				position = last_drop_zone.position
+				rotation = last_drop_zone.rotation
+				emit_signal("dropped_canceled", self)
 			else:
 				drop_zone = null
 				emit_signal("dropped_out", self)
