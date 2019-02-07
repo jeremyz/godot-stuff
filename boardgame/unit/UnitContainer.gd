@@ -11,7 +11,6 @@ var from : Vector2
 var to : Vector2
 var speed = 0
 var offset = 20
-var pressed = false
 var selected_slot : Control = null
 
 var pmax = 0
@@ -62,7 +61,8 @@ func _on_complete_dragging(unit : Unit):
 	release_input()
 
 func release_input():
-	# without that event, the cursor is logically still over the UnitContainer
+	# when a drag motion is initiated from an Control,
+	# mouse entered and exited event are not generated
 	var event = InputEventMouseButton.new()
 	event.pressed = false
 	event.button_index = BUTTON_LEFT
@@ -74,10 +74,10 @@ func _on_resized():
 func _gui_input(event):
 	if event is InputEventScreenTouch or (event is InputEventMouseButton and event.button_index == BUTTON_LEFT):
 		if event.pressed:
-			start_pressed()
+			select()
 		else:
-			stop_pressed()
-	elif pressed and (event is InputEventMouseMotion or event is InputEventScreenDrag):
+			release()
+	elif selected_slot != null and (event is InputEventMouseMotion or event is InputEventScreenDrag):
 		check_direction()
 
 func check_direction():
@@ -86,52 +86,44 @@ func check_direction():
 	var v = to - from
 	from = to
 	var a = v.angle()
-	if a < .2 and a > -.2:
+	if get_local_mouse_position().y < 0:
+		drag_out()
+	elif a < .2 and a > -.2:
 		slide(v.x, int(v.length()))
 	elif a < -2.94 or a > 2.94:
 		slide(v.x, int(-v.length()))
-	elif -1.77 < a and a <  -1.37:
-		drag()
-		if get_local_mouse_position().y < 0:
-			drag_out()
 	else:
 		speed = 0
 
 func slide(dx, v):
-	stop_dragged()
 	speed = v
 	container.rect_position.x += dx
 	container.rect_position.x = clamp(container.rect_position.x, pmin - offset, pmax + offset)
 
-func drag():
-	stop_slide()
+func drag_out():
+	var unit = selected_slot.get_child(0)
+	selected_slot.remove_child(unit)
+	unit.set_freezed(false)
+	emit_signal("dragging", unit)
+
+func select():
+	from = get_global_mouse_position()
 	var m = get_local_mouse_position().x - container.rect_position.x
 	for c in container.get_children():
-		var cc = c as Control
-		if m >= cc.rect_position.x and m <= cc.rect_position.x + cc.rect_size.x:
+		if m >= c.rect_position.x and m <= c.rect_position.x + c.rect_size.x:
+			c.get_child(0).set_selected(true)
 			selected_slot = c
 			break
 
-func drag_out():
-	if pressed and selected_slot != null:
-		var unit = selected_slot.get_child(0)
-		unit.set_freezed(false)
-		selected_slot.remove_child(unit)
-		emit_signal("dragging", unit)
-	pressed = false
-
-func start_pressed():
-	pressed = true
-	from = get_global_mouse_position()
-
-func stop_pressed():
-	pressed = false
+func release():
 	if selected_slot != null:
 		stop_dragged()
-	else:
-		stop_slide()
+	stop_slide()
 
 func stop_dragged():
+	var unit = selected_slot.get_child(0)
+	if unit != null:
+		unit.set_selected(false)
 	selected_slot = null
 
 func stop_slide():
