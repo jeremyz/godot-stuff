@@ -72,17 +72,12 @@ func _on_resized():
 	pmin = rect_size.x - container.rect_size.x
 
 func _gui_input(event):
-	if event is InputEventScreenTouch:
+	if event is InputEventScreenTouch or (event is InputEventMouseButton and event.button_index == BUTTON_LEFT):
 		if event.pressed:
 			start_pressed()
 		else:
 			stop_pressed()
-	elif event is InputEventMouseButton and event.button_index == BUTTON_LEFT:
-		if event.pressed:
-			start_pressed()
-		else:
-			stop_pressed()
-	elif pressed and event is InputEventMouseMotion:
+	elif pressed and (event is InputEventMouseMotion or event is InputEventScreenDrag):
 		check_direction()
 
 func check_direction():
