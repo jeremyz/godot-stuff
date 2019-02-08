@@ -16,7 +16,7 @@ func load_units():
 	var tex = load("res://unit/assets/units.png")
 	var unit
 	var n = 0
-	var cont = $UnitContainer
+	var cont = $NinePatchRect/UnitContainer
 	for y in 3:
 		for x in 4:
 			if n < 6:
