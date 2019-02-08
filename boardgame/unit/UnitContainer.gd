@@ -46,6 +46,7 @@ func add(unit : Unit, w, h):
 	c.rect_min_size = Vector2(w, h)
 	c.add_child(unit)
 	container.add_child(c)
+	_on_resized()
 
 func _on_cancel_dragging(unit : Unit):
 	if selected_slot != null:
@@ -57,6 +58,7 @@ func _on_cancel_dragging(unit : Unit):
 func _on_complete_dragging(unit : Unit):
 	if selected_slot != null:
 		container.remove_child(selected_slot)
+		_on_resized()	# has to be triggered manually
 		stop_dragged()
 	release_input()
 
@@ -69,7 +71,14 @@ func release_input():
 	get_tree().input_event(event)
 
 func _on_resized():
-	pmin = rect_size.x - container.rect_size.x
+	var rs = rect_size.x
+	var hbs = container.get_minimum_size().x
+	if hbs > rs:
+		pmax = 0
+		pmin = rs - hbs
+	else:
+		pmax = (rs - hbs) / 2
+		pmin = pmax
 
 func _gui_input(event):
 	if event is InputEventScreenTouch or (event is InputEventMouseButton and event.button_index == BUTTON_LEFT):
