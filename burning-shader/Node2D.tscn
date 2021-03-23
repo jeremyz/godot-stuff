@@ -5,7 +5,6 @@
 [ext_resource path="res://alpha.png" type="Texture" id=3]
 
 [sub_resource type="ShaderMaterial" id=1]
-
 shader = ExtResource( 2 )
 shader_param/time = null
 
@@ -18,4 +17,3 @@ margin_right = 800.0
 margin_bottom = 450.0
 texture = ExtResource( 3 )
 expand = true
-
