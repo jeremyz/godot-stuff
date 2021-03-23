@@ -11,7 +11,9 @@ const float r = 0.3;	// applied to width to compute the cylinder radius
 const float du = 3.0;	// animation duration
 
 void fragment() {
-	if (time < du) {
+	if (time > du) {
+		COLOR = texture(tex2, UV);
+	} else {
 		vec2 pt = UV * rect;
 		float R = r * rect.x; 							// cylinder radius
 		float s = 1.5 * rect.x / du; 					// speed (1.5 width to be sure to leave the page)
@@ -20,22 +22,30 @@ void fragment() {
 		vec2 o = vec2(da * du * s, 0.0);				// cylinder position
 		float d = dot(pt - o, u);						// distance to cylinder
 		vec2 h = pt - u * d;							// projection
+		bool neg = d < 0.0;								// left of the cylinder
 		bool onCylinder = abs(d) < R;					// is on cylinder
-		float angle = onCylinder ? asin(d / R) : 0.0;	// 
-		bool neg = d < 0.0;
-		float a0 = 3.141592653 + angle;
-	    float a = onCylinder ? (neg ? -angle : (3.141592653 + angle)) : 0.0;
-	    float l = R * a;								// length of arc
-	    vec2 p = h - u * l;								// unwrapped point from cylinder to plane
-		bool outside = any(lessThan(p, vec2(0.0))) || any(greaterThan(p, rect));
-	    bool next = (!onCylinder || outside) && neg;	// is next page
-		vec4 color = (next ? mix(0.1, 1.0, da) * texture(tex2, UV) : texture(tex1, (!onCylinder || outside ? UV : p / rect)));
-	    l = R * a0;										// length of arc
-	    p = h - u * l;									// unwrapped point from cylinder to plane
-	    outside = any(lessThan(p, vec2(0.0))) || any(greaterThan(p, rect));
-	    color = outside || !onCylinder ? color : texture(tex1, p/ rect);
+		vec4 color;
+		if (!onCylinder) {
+			if (neg) {
+				color = mix(0.1, 1.0, da) * texture(tex2, UV);	// next page
+			} else {
+				color = texture(tex1, UV);						// current page
+			}
+		} else {
+			float angle = asin(d / R);
+			float a0 = 3.141592653 + angle;
+			float a = neg ? -angle : (3.141592653 + angle);
+			float l = R * a;									// length of arc
+			vec2 p = h - u * l;									// unwrapped point from cylinder to plane
+			bool outside = any(lessThan(p, vec2(0.0))) || any(greaterThan(p, rect));
+			color = texture(tex1, (outside ? UV : p / rect));	// front and curved front
+			l = R * a0;											// length of arc
+			p = h - u * l;										// unwrapped point from cylinder to plane
+			outside = any(lessThan(p, vec2(0.0))) || any(greaterThan(p, rect));
+			if (!outside) {
+				color = texture(tex1, p / rect);					// curved back
+			}
+		}
 		COLOR = color;
-	} else {
-		COLOR = texture(tex2, UV);
-	}	
+	}
 }
