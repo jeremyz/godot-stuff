@@ -1,0 +1,27 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Node2D.gd" type="Script" id=1]
+[ext_resource path="res://pageflip.shader" type="Shader" id=2]
+[ext_resource path="res://alpha.png" type="Texture" id=3]
+[ext_resource path="res://page0.png" type="Texture" id=4]
+[ext_resource path="res://page3.png" type="Texture" id=5]
+
+[sub_resource type="ShaderMaterial" id=1]
+shader = ExtResource( 2 )
+shader_param/time = 1.5
+shader_param/rect = Vector2( 800, 450 )
+shader_param/tex1 = ExtResource( 4 )
+shader_param/tex2 = ExtResource( 5 )
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="TextureRect" type="TextureRect" parent="."]
+material = SubResource( 1 )
+margin_right = 800.0
+margin_bottom = 450.0
+texture = ExtResource( 3 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
