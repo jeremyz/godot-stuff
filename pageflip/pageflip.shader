@@ -44,8 +44,14 @@ void fragment() {
 			float l = R * a;											// length of arc
 			vec2 p = h - u * l;											// unwrapped point from cylinder to plane
 			bool outside = any(lessThan(p, vec2(0.0))) || any(greaterThan(p, rect));
-			//color = (outside ? vec4(1.0,0.5,0.0,1) : vec4(00,0,1,1));
-			color = texture(current_page, (outside ? UV : p / rect));	// front and curved front
+			bool next = outside && (flip_left ? (pt.x > o.x) : (pt.x < o.x));
+			if (next) {
+				//color = vec4(0,1,1,1);
+				color = mix(0.1, 1.0, da) * texture(next_page, UV);			// next page
+			} else {
+				//color = (outside ? vec4(1.0,0.5,0.0,1) : vec4(00,0,1,1));
+				color = texture(current_page, (outside ? UV : p / rect));	// front and curved front
+			}
 			l = R * a0;													// length of arc
 			p = h - u * l;												// unwrapped point from cylinder to plane
 			outside = any(lessThan(p, vec2(0.0))) || any(greaterThan(p, rect));
