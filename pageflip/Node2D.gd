@@ -7,8 +7,10 @@ var num = 1;
 func _ready():
 	for n in range(4):
 		img.append(load("res://page%d.png" % n))
+	$TextureRect.material.set_shader_param("flip_left", false)
 	$TextureRect.material.set_shader_param("flip_duration", 3)
 	$TextureRect.material.set_shader_param("cylinder_ratio", 0.3)
+	$TextureRect.material.set_shader_param("cylinder_direction", Vector2(5.0, -1.0))
 	$TextureRect.material.set_shader_param("rect", Vector2(800,450))
 	$TextureRect.material.set_shader_param("current_page", img[0])
 	$TextureRect.material.set_shader_param("next_page", img[1])

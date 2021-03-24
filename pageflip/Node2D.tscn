@@ -9,8 +9,10 @@
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 2 )
 shader_param/time = 1.8
+shader_param/flip_left = true
 shader_param/flip_duration = 3.5
 shader_param/cylinder_ratio = 0.3
+shader_param/cylinder_direction = Vector2( 5, 1 )
 shader_param/rect = Vector2( 800, 450 )
 shader_param/current_page = ExtResource( 4 )
 shader_param/next_page = ExtResource( 5 )
