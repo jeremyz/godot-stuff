@@ -1,15 +1,19 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Node2D.gd" type="Script" id=1]
 [ext_resource path="res://pageflip.shader" type="Shader" id=2]
 [ext_resource path="res://alpha.png" type="Texture" id=3]
+[ext_resource path="res://page2.png" type="Texture" id=4]
+[ext_resource path="res://page3.png" type="Texture" id=5]
 
 [sub_resource type="ShaderMaterial" id=1]
 shader = ExtResource( 2 )
-shader_param/time = 1.5
-shader_param/flip_duration = null
-shader_param/cylinder_ratio = null
+shader_param/time = 1.8
+shader_param/flip_duration = 3.5
+shader_param/cylinder_ratio = 0.3
 shader_param/rect = Vector2( 800, 450 )
+shader_param/current_page = ExtResource( 4 )
+shader_param/next_page = ExtResource( 5 )
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 1 )
