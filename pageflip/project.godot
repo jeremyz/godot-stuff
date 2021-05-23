@@ -8,23 +8,24 @@
 
 config_version=4
 
-_global_script_classes=[  ]
+_global_script_classes=[ {
+"base": "NinePatchRect",
+"class": "Book",
+"language": "GDScript",
+"path": "res://Book.gd"
+} ]
 _global_script_class_icons={
-
+"Book": "res://Book.png"
 }
 
 [application]
 
-config/name="Burning Shader"
-run/main_scene="res://Node2D.tscn"
+config/name="Page Flip Shader"
+run/main_scene="res://Main.tscn"
 config/icon="res://icon.png"
-
-[display]
-
-window/size/width=800
-window/size/height=450
 
 [rendering]
 
-quality/2d/use_pixel_snap=true
+2d/snapping/use_gpu_pixel_snap=true
 environment/default_environment="res://default_env.tres"
+quality/2d/use_pixel_snap=true

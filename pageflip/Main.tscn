@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Book.tscn" type="PackedScene" id=1]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node2D
+
+func _ready() -> void:
+	$Book.show_book(\"book\", 4)
+"
+
+[node name="Main" type="Node2D"]
+script = SubResource( 1 )
+
+[node name="Book" parent="." instance=ExtResource( 1 )]
+visible = false
+margin_left = 116.583
+margin_top = 66.348
+margin_right = 916.583
+margin_bottom = 550.348
