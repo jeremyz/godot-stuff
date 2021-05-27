@@ -19,6 +19,7 @@ func _init() -> void:
 func _ready() -> void:
 	var _n
 	_n = $Sprite/Area2D.connect("input_event", self, "_input_event")
+	_n = $Sprite/Area2D.connect("mouse_exited", self, "_on_mouse_exited")
 	add_counter(Counter.instance(), 100, 100)
 	add_counter(Counter.instance(), 300, 100)
 
@@ -53,6 +54,9 @@ func _on_counter_clicked(counter, button_index, pressed) -> void:
 		elif state == State.DRAG_COUNTER:
 #			print("stop dragging counter")
 			state = State.NONE
+
+func _on_mouse_exited() -> void:
+	state = State.NONE
 
 func _input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton:
