@@ -4,6 +4,7 @@ func _ready() -> void:
 	_on_resize()
 	var _none
 	_none = get_tree().get_root().connect("size_changed", self, "_on_resize")
+	$ShakeBtn.connect("pressed", self, "_on_shake")
 	# Area2D._input_event are called only if the event is unwanted, mouse_filter must then be set to IGNIRE 
 #	_none  = $ViewportContainer.connect("gui_input", self, "_gui_input")
 
@@ -28,3 +29,6 @@ func _input(event : InputEvent) -> void:
 	if event is InputEventKey:
 		if event.pressed and event.scancode == KEY_ESCAPE:
 			get_tree().quit()
+
+func _on_shake() -> void:
+	$ViewportContainer/MapViewport/Camera2D.shake($ShakeSlider.value, 1.0)

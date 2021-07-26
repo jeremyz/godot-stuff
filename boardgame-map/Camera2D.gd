@@ -4,6 +4,7 @@ export(float) var duration = 0.3	# move interpolation duration
 export(float) var zoom_steps = 3	# zoom steps needed
 
 onready var tween = $Tween
+onready var timer = $Timer
 onready var from := Vector3()
 onready var to := Vector3()
 
@@ -14,11 +15,13 @@ var texture_size : Vector2
 var visible_size : Vector2
 var dt_zoom : float
 
-func _init() -> void:
-	current = true
-	drag_margin_h_enabled = false
-	drag_margin_v_enabled = false
+var shake_amplitude : int
+var default_offset : Vector2
+
+func _ready() -> void:
 	zoom_boundaries = Vector2(0, 0)
+	timer.connect("timeout", self, "_on_shake_timeout")
+	set_process(false)
 
 func configure_with(viewport : Viewport, map : Sprite, zoom_in : float) -> void:
 	viewport_size = viewport.size
@@ -40,6 +43,24 @@ func configure_with(viewport : Viewport, map : Sprite, zoom_in : float) -> void:
 	print("TEXTURE  : %s" % texture_size)
 	print("CENTER   : %s" % map_center)
 	print("ZOOM     : %s %f" % [zoom_boundaries, dt_zoom])
+
+func _process(delta : float) -> void:
+	offset = Vector2(rand_range(-shake_amplitude, shake_amplitude), rand_range(-shake_amplitude, shake_amplitude)) * delta + default_offset
+
+func shake(amplitude : int, dt : float = 1.0, delay : float = 0.0) -> void:
+	default_offset = offset
+	shake_amplitude = amplitude
+	timer.wait_time = dt
+	tween.stop_all()
+	if delay > 0:
+		yield(get_tree().create_timer(delay), "timeout")
+	set_process(true)
+	timer.start()
+
+func _on_shake_timeout() -> void:
+	set_process(false)
+	tween.interpolate_property(self, "offset", offset, default_offset, 0.1, Tween.TRANS_QUAD, Tween.EASE_IN_OUT)
+	tween.start()
 
 func is_zoomed_in() -> bool:
 	return zoom.x == zoom_boundaries.x
