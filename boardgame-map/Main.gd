@@ -37,7 +37,7 @@ func _on_shake() -> void:
 func _on_cloud(on : bool) -> void:
 	if on :
 		var shader = ShaderMaterial.new()
-		shader.shader = load("res://clouds.gdshader")
+		shader.shader = load("res://clouds.shader")
 		var s : Sprite = $ViewportContainer/MapViewport/Sprite
 		s.set_material(shader)
 		s.material.set_shader_param("speed", 0.001)
