@@ -6,6 +6,7 @@ func _ready() -> void:
 	_none = get_tree().get_root().connect("size_changed", self, "_on_resize")
 	var _r0 = $ShakeBtn.connect("pressed", self, "_on_shake")
 	var _r1 = $Clouds.connect("toggled", self, "_on_cloud")
+	var _r2 = $Shocks.connect("toggled", self, "_on_shock")
 	# Area2D._input_event are called only if the event is unwanted, mouse_filter must then be set to IGNIRE 
 #	_none  = $ViewportContainer.connect("gui_input", self, "_gui_input")
 
@@ -34,8 +35,19 @@ func _input(event : InputEvent) -> void:
 func _on_shake() -> void:
 	$ViewportContainer/MapViewport/Camera2D.shake($ShakeSlider.value, 1.0)
 
+func _on_shock(on : bool) -> void:
+	if on:
+		$Clouds.pressed = false
+		var shader = ShaderMaterial.new()
+		shader.shader = load("res://blast.shader")
+		var s : Sprite = $ViewportContainer/MapViewport/Sprite
+		s.set_material(shader)
+	else:
+		$ViewportContainer/MapViewport/Sprite.set_material(null)
+
 func _on_cloud(on : bool) -> void:
 	if on :
+		$Shocks.pressed = false
 		var shader = ShaderMaterial.new()
 		shader.shader = load("res://clouds.shader")
 		var s : Sprite = $ViewportContainer/MapViewport/Sprite

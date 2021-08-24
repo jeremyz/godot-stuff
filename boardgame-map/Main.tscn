@@ -43,10 +43,10 @@ texture = ExtResource( 1 )
 shape = SubResource( 1 )
 
 [node name="ShakeBtn" type="Button" parent="."]
-margin_left = 3.92862
-margin_top = 5.05109
-margin_right = 64.9286
-margin_bottom = 30.0511
+margin_left = 4.0
+margin_top = 5.0
+margin_right = 64.0
+margin_bottom = 30.0
 text = "Shake"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -64,11 +64,21 @@ __meta__ = {
 }
 
 [node name="Clouds" type="CheckBox" parent="."]
-margin_left = 260.316
-margin_top = 6.19385
-margin_right = 331.316
-margin_bottom = 31.1938
+margin_left = 260.0
+margin_top = 6.0
+margin_right = 331.0
+margin_bottom = 31.0
 text = "Clouds"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Shocks" type="CheckBox" parent="."]
+margin_left = 260.0
+margin_top = 30.0
+margin_right = 364.0
+margin_bottom = 55.0
+text = "Shockwaves"
 __meta__ = {
 "_edit_use_anchors_": false
 }
