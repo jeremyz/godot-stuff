@@ -37,7 +37,6 @@ func _on_shake() -> void:
 
 func _on_shock(on : bool) -> void:
 	if on:
-		$Clouds.pressed = false
 		var shader = ShaderMaterial.new()
 		shader.shader = load("res://blast.shader")
 		var s : Sprite = $ViewportContainer/MapViewport/Sprite
@@ -46,14 +45,4 @@ func _on_shock(on : bool) -> void:
 		$ViewportContainer/MapViewport/Sprite.set_material(null)
 
 func _on_cloud(on : bool) -> void:
-	if on :
-		$Shocks.pressed = false
-		var shader = ShaderMaterial.new()
-		shader.shader = load("res://clouds.shader")
-		var s : Sprite = $ViewportContainer/MapViewport/Sprite
-		s.set_material(shader)
-		s.material.set_shader_param("speed", 0.001)
-		s.material.set_shader_param("transparency", 0.9)
-		s.material.set_shader_param("direction", Vector2(20, 50))
-	else:
-		$ViewportContainer/MapViewport/Sprite.set_material(null)
+	$ViewportContainer.material.set_shader_param("smoke_on", on)
