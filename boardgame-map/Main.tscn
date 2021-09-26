@@ -43,6 +43,7 @@ script = ExtResource( 2 )
 [node name="Tween" type="Tween" parent="ViewportContainer/MapViewport/Camera2D"]
 
 [node name="Timer" type="Timer" parent="ViewportContainer/MapViewport/Camera2D"]
+one_shot = true
 
 [node name="Sprite" type="Sprite" parent="ViewportContainer/MapViewport"]
 texture = ExtResource( 1 )
