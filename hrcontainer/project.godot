@@ -1,0 +1,33 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "NinePatchRect",
+"class": "HRContainer",
+"language": "GDScript",
+"path": "res://HRContainer.gd"
+} ]
+_global_script_class_icons={
+"HRContainer": "res://HRContainer.svg"
+}
+
+[application]
+
+config/name="ItemContainer"
+run/main_scene="res://Main.tscn"
+config/icon="res://HRContainer.svg"
+
+[physics]
+
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+environment/default_environment="res://default_env.tres"

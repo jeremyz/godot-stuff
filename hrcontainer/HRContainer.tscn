@@ -1,0 +1,68 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://HRContainer.gd" type="Script" id=1]
+[ext_resource path="res://patch.png" type="Texture" id=2]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0.989071, 1 )
+colors = PoolColorArray( 1, 0, 0, 1, 1, 1, 1, 1 )
+
+[sub_resource type="GradientTexture" id=2]
+gradient = SubResource( 1 )
+
+[node name="HRContainer" type="NinePatchRect"]
+margin_left = 85.0
+margin_top = 307.0
+margin_right = 906.0
+margin_bottom = 407.0
+mouse_filter = 0
+texture = ExtResource( 2 )
+patch_margin_left = 16
+patch_margin_top = 16
+patch_margin_right = 16
+patch_margin_bottom = 16
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="Clipper" type="Control" parent="."]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 10.0
+margin_top = -141.0
+margin_right = -10.0
+margin_bottom = -10.0
+rect_clip_content = true
+mouse_filter = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Clipper"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+custom_constants/separation = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Mark" type="Control" parent="Clipper/HBoxContainer"]
+margin_right = 8.0
+margin_bottom = 131.0
+rect_min_size = Vector2( 8, 0 )
+
+[node name="Mark" type="TextureRect" parent="Clipper/HBoxContainer/Mark"]
+margin_right = 8.0
+margin_bottom = 80.0
+rect_min_size = Vector2( 8, 80 )
+mouse_filter = 2
+texture = SubResource( 2 )
+expand = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
