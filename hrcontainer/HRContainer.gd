@@ -90,7 +90,7 @@ func offset(offset : int) -> void:
 
 func center() -> void:
 	if rect_size.x > container.get_minimum_size().x:
-		container.rect_position.x = (rect_size.x - container.get_minimum_size().x) / 2
+		container.rect_position.x = (rect_size.x - container.get_minimum_size().x - (slot_size.y - slot_size.x)) / 2
 		__container_updated()
 
 func enable(e : bool) -> void:
@@ -101,6 +101,7 @@ func enable(e : bool) -> void:
 		tween.stop_all()
 	if e:
 		_alpha(1)
+		center()
 	else:
 		_alpha(0)
 
