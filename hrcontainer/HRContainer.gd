@@ -30,6 +30,7 @@ var hsep : int						# half HBox separation - 1 px
 var dragging : bool					# are we dragging
 var drag_limit : Vector2			# left-right limit
 var dragged_item : TextureRect		# the item that is dragged out
+var ppos : Vector2					# left click position
 var lpos : Vector2					# to compute sliding offset
 
 func _ready() -> void:
@@ -206,7 +207,10 @@ func _process(_delta : float) -> void:
 func _gui_input(event : InputEvent) -> void:
 	if event is InputEventScreenTouch or (event is InputEventMouseButton and event.button_index == BUTTON_LEFT):
 		if event.is_pressed():
-			lpos = get_local_mouse_position()
+			ppos = clipper.get_local_mouse_position()
+			lpos = ppos
+		else:
+			release(clipper.get_local_mouse_position())
 		dragging = event.is_pressed()
 	elif event is InputEventMouseButton:
 		if event.button_index == BUTTON_WHEEL_UP:
@@ -217,9 +221,22 @@ func _gui_input(event : InputEvent) -> void:
 		__check_direction()
 	accept_event()
 
+func release(rpos : Vector2) -> void:
+	if (rpos - ppos).length() < 20:
+		var mid : float = rect_size.x / 2 - clipper.margin_left - cont_x
+		rpos.x -= container.rect_position.x
+		for c in container.get_children():
+			if rpos.x >= c.rect_position.x - hsep and rpos.x <= c.rect_position.x + c.rect_size.x + hsep:
+				if c.rect_position.x < mid:
+					__slide(mid - c.rect_position.x - slot_size.y / 2)
+				else:
+					__slide(mid - c.rect_position.x)
+				cont_x = 0
+				break
+
 func __check_direction() -> void:
 	tween.stop_all()
-	var tmp = get_local_mouse_position()
+	var tmp = clipper.get_local_mouse_position()
 	var v = tmp - lpos
 	var a = v.angle()
 	lpos = tmp
