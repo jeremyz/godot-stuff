@@ -37,7 +37,7 @@ margin_top = -141.0
 margin_right = -10.0
 margin_bottom = -10.0
 rect_clip_content = true
-mouse_filter = 1
+mouse_filter = 2
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -55,6 +55,7 @@ __meta__ = {
 margin_right = 8.0
 margin_bottom = 131.0
 rect_min_size = Vector2( 8, 0 )
+mouse_filter = 2
 
 [node name="Mark" type="TextureRect" parent="Clipper/HBoxContainer/Mark"]
 margin_right = 8.0

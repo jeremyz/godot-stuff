@@ -99,6 +99,9 @@ func center() -> void:
 
 func enable(e : bool) -> void:
 	enabled = e
+	if not e: # ugly trick to let go off _gui_input
+		visible = false
+		visible = true
 	if not hide_on_disabled:
 		return
 	if tween.is_active():
