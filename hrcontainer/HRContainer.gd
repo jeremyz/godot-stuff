@@ -26,6 +26,7 @@ var slot_offset : int				# slot width + spacing
 var mark_offset : int				# mark width + spacing
 var selected_slot : Control			# current selected and zoomed slot
 var cont_x : int = 0				# HBox x offset
+var hsep : int						# half HBox separation - 1 px
 var dragging : bool					# are we dragging
 var drag_limit : Vector2			# left-right limit
 var dragged_item : TextureRect		# the item that is dragged out
@@ -63,8 +64,10 @@ func dimensions(sz : Vector2, m : int, x :int) -> void:
 	else:
 		mark.get_node("Mark").rect_position.y = 0
 	rect_size = sz
-	slot_offset = slot_size.x + container.get("custom_constants/separation")
-	mark_offset = mark.rect_size.x + container.get("custom_constants/separation")
+	var separation : int = container.get("custom_constants/separation")
+	hsep = int(separation / 2.0) - 1
+	slot_offset = int(slot_size.x + separation)
+	mark_offset = mark.rect_size.x + separation
 	drag_limit = Vector2(clipper.rect_position.x, clipper.rect_position.x + clipper.rect_size.x)
 	if DEBUG:
 		debug()
@@ -186,13 +189,12 @@ func _process(_delta : float) -> void:
 	cont_x = int(container.rect_position.x)
 	var next : Control = null
 	var mid : float = rect_size.x / 2 - clipper.margin_left - cont_x
-	var separation = container.get("custom_constants/separation") / 2 - 1
 	for c in container.get_children():
-		if mid >= c.rect_position.x - separation and mid <= c.rect_position.x + c.rect_size.x + separation:
+		if mid >= c.rect_position.x - hsep and mid <= c.rect_position.x + c.rect_size.x + hsep:
 			next = c
 			break
 	if next == null:
-		container.rect_position.x = container.rect_position.x + separation
+		container.rect_position.x = container.rect_position.x + hsep
 		return
 	if next == selected_slot or next == mark or next.get_child_count() == 0:
 		return
