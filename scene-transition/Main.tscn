@@ -12,7 +12,9 @@ func _ready() -> void:
 	var _r = $Transition.connect('transition_middle', self, '_on_scene_change_middle')
 	_r = $Transition.connect('transition_completed', self, '_on_scene_change_completed')
 	_r = current_scene.connect('change_scene', self, '_on_scene_change')
-	current_scene.set_active()
+	$Transition.visible = true
+	yield(get_tree().create_timer(1.0), 'timeout')
+	$Transition.fade_out()
 
 func _on_scene_change(path : String) -> void:
 	$Transition.start(\"res://%s.tscn\" % path)
@@ -54,6 +56,9 @@ func start(path : String) -> void:
 
 func _on_transition_middle(path : String) -> void:
 	emit_signal('transition_middle', path)
+	fade_out()
+
+func fade_out() -> void:
 	var tween := get_tree().create_tween()
 	var _t = tween.connect(\"finished\", self, '_on_transition_finished')
 	_t = tween.set_parallel(true)
