@@ -1,10 +1,11 @@
 ## Godot test project.
 
  * [boardgame-map](./boardgame-map) map and counters handling using Area2D and _input_event(…),
-   with clouds and shockwave shaders and with camera shake anmation.
+   clouds and shockwave shaders, camera shake.
  * [burning-shader](./burning-shader) burn pages using a shader.
- * [pageflip](./pageflip) flip book pages left or right using a shader.
  * [hrcontainer](./hrcontainer) horizontal ring container, with up or down dragging and selection zoom.
+ * [pageflip](./pageflip) flip book pages left or right using a shader.
+ * [scene-transition](./scene-transition) very simple scene transition
 
 ### TODO
 

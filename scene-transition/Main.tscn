@@ -1,0 +1,91 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://SceneA.tscn" type="PackedScene" id=1]
+[ext_resource path="res://logo.png" type="Texture" id=2]
+
+[sub_resource type="GDScript" id=1]
+script/source = "extends Node
+
+onready var current_scene := $SceneA
+
+func _ready() -> void:
+	var _r = $Transition.connect('transition_middle', self, '_on_scene_change_middle')
+	_r = $Transition.connect('transition_completed', self, '_on_scene_change_completed')
+	_r = current_scene.connect('change_scene', self, '_on_scene_change')
+	current_scene.set_active()
+
+func _on_scene_change(path : String) -> void:
+	$Transition.start(\"res://%s.tscn\" % path)
+
+func _on_scene_change_middle(path : String) -> void:
+	current_scene.queue_free()
+	current_scene = load(path).instance()
+	var _r = current_scene.connect('change_scene', self, '_on_scene_change')
+	add_child(current_scene)
+
+func _on_scene_change_completed() -> void:
+	current_scene.set_active()
+"
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends CanvasLayer
+
+signal transition_middle(path)
+signal transition_completed()
+
+const duration := 1
+
+func _ready() -> void:
+	visible = false
+
+func start(path : String) -> void:
+	visible = true
+	$Logo.modulate.a = 0
+	$Logo.rect_scale = Vector2(0, 0)
+	$Logo.rect_position = Vector2(512, 300)
+	$Background.modulate.a = 0
+	var tween := get_tree().create_tween()
+	var _t = tween.connect('finished', self, \"_on_transition_middle\", [path])
+	_t = tween.set_parallel(true)
+	_t = tween.tween_property($Logo, 'modulate', Color(1, 1, 1, 1), duration)
+	_t = tween.tween_property($Logo, 'rect_scale', Vector2(1,1), duration).set_trans(Tween.TRANS_ELASTIC)
+	_t = tween.tween_property($Logo, 'rect_position', Vector2(480,268), duration).set_trans(Tween.TRANS_ELASTIC)
+	_t = tween.tween_property($Background, 'modulate', Color(1, 1, 1, 1), duration)
+
+func _on_transition_middle(path : String) -> void:
+	emit_signal('transition_middle', path)
+	var tween := get_tree().create_tween()
+	var _t = tween.connect(\"finished\", self, '_on_transition_finished')
+	_t = tween.set_parallel(true)
+	_t = tween.tween_property($Logo, 'modulate', Color(1, 1, 1, 0), duration)
+	_t = tween.tween_property($Background, 'modulate', Color(1, 1, 1, 0), duration)
+
+func _on_transition_finished() -> void:
+	emit_signal('transition_completed')
+	visible = false
+"
+
+[node name="Node" type="Node"]
+script = SubResource( 1 )
+
+[node name="Transition" type="CanvasLayer" parent="."]
+layer = 10
+script = SubResource( 2 )
+
+[node name="Background" type="ColorRect" parent="Transition"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0.345098, 0.0313726, 0.0313726, 1 )
+
+[node name="Logo" type="TextureRect" parent="Transition"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -32.0
+margin_top = -32.0
+margin_right = 32.0
+margin_bottom = 32.0
+texture = ExtResource( 2 )
+
+[node name="SceneA" parent="." instance=ExtResource( 1 )]
