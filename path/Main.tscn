@@ -1,0 +1,187 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://map.png" type="Texture" id=1]
+[ext_resource path="res://tail.png" type="Texture" id=3]
+[ext_resource path="res://head.png" type="Texture" id=4]
+[ext_resource path="res://body.png" type="Texture" id=5]
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends TextureRect
+
+const offset = Vector2(135,147)
+
+func _ready():
+	var _r = $Reset.connect('pressed', self, '_on_reset')
+	$Path.bake_interval = 15
+	$Path.width = 66
+
+func _on_reset() -> void:
+	$Path.reset()
+
+func aproximate(v : Vector2) -> Vector2:
+	v -= offset
+	v.x = max(v.x, 0)
+	v.y = max(v.y, 0)
+	var dy = int((v.y + 75) / 150)
+	if dy % 2 == 0:
+		v.x = int((v.x + 88) / 174) * 174
+	else:
+		v.x = int(v.x / 174) * 174 + 88
+	v.y = dy * 150
+	v += offset
+	return v
+
+func _input(event):
+	if event is InputEventMouseButton:
+		if not event.is_pressed():
+			$Path.add_point(aproximate(event.position))
+"
+
+[sub_resource type="GDScript" id=5]
+script/source = "extends Node
+
+var bake_interval = 15 setget set_baked
+var width = 66 setget set_width
+
+var n := 0
+var tail : Curve2D = Curve2D.new()
+var body : Curve2D = Curve2D.new()
+var head : Curve2D = Curve2D.new()
+
+func _ready() -> void:
+	$Tail.visible = false
+	$Body.visible = false
+	$Head.visible = false
+
+func set_baked(v : int) -> void:
+	tail.bake_interval = v
+	body.bake_interval = v
+	head.bake_interval = v
+
+func set_width(v : int) -> void:
+	$Tail.width = v
+	$Body.width = v
+	$Head.width = v
+
+func reset() -> void:
+	n = 0
+	tail.clear_points()
+	body.clear_points()
+	head.clear_points()
+	$Tail.clear_points()
+	$Body.clear_points()
+	$Head.clear_points()
+	$Tail.visible = false
+	$Body.visible = false
+	$Head.visible = false
+
+const f = 1.0/3.0
+func add_point(p : Vector2) -> void:
+	if n == 0:
+		tail.add_point(p)
+		n += 1
+	elif n == 1:
+		var p0 := tail.get_point_position(0)
+		if p == p0:
+			return
+		var v := p - p0
+		var vf := v * f
+		tail.set_point_out(0, vf)
+		tail.add_point(p0 + v / 2)
+		tail.set_point_in(1, -vf)
+		tail.set_point_out(1, vf)
+		$Tail.points = tail.get_baked_points()
+		$Tail.visible = true
+		head.add_point(p0 + v / 2)
+		head.add_point(p)
+		$Head.points = head.get_baked_points()
+		$Head.visible = true
+		body.add_point(p0 + v / 2.1)
+		body.set_point_in(0, -vf)
+		body.set_point_out(0, vf)
+		body.add_point(p)
+		body.set_point_in(1, -vf)
+		n += 1
+	elif n == 2:
+		$Tail.points = tail.get_baked_points()
+		$Tail.visible = true
+		$Body.visible = true
+		n += 1
+	if n > 1:
+		var i : int = body.get_point_count() - 1
+		var p0 := body.get_point_position(i)
+		if p == p0:
+			return
+		var v := p - p0
+		var vf := v * f
+		body.set_point_position(i, p0 + v / 2)
+		body.set_point_in(i, -vf)
+		body.set_point_out(i, vf)
+		$Body.points = body.get_baked_points()
+		body.add_point(p)
+		body.set_point_in(i + 1, -vf)
+		_copy(body, i, head, 0)
+		_copy(body, i + 1, head, 1)
+		$Head.points = head.get_baked_points()
+
+func _copy(from : Curve2D, fi : int, to : Curve2D, ti : int) -> void:
+	to.set_point_position(ti, from.get_point_position(fi))
+	to.set_point_in(ti, from.get_point_in(fi))
+	to.set_point_out(ti, from.get_point_out(fi))
+
+#	var i : int = curve.get_point_count() - 1
+#	if i < 0:
+#		curve.add_point(p)
+#		return
+#	var p0 := curve.get_point_position(i)
+#	if p == p0:
+#		print(\"nope\")
+#		return
+#	var v := p - p0
+#	var vf := v * f
+#	if i == 0:
+#		curve.set_point_out(0, vf)
+#		curve.add_point(p0 + v / 2) # add first midlle point
+#	else:
+#		curve.set_point_position(i, p0 + v / 2)
+#	curve.set_point_in(i, -vf)
+#	curve.set_point_out(i, vf)
+#	curve.add_point(p)
+#	curve.set_point_in(i + 1, -vf)
+"
+
+[sub_resource type="Gradient" id=4]
+
+[node name="TextureRect" type="TextureRect"]
+margin_right = 1832.0
+margin_bottom = 1200.0
+texture = ExtResource( 1 )
+script = SubResource( 2 )
+
+[node name="Reset" type="Button" parent="."]
+margin_left = 1690.0
+margin_top = 22.0
+margin_right = 1812.0
+margin_bottom = 91.0
+text = "Reset"
+
+[node name="Path" type="Node" parent="."]
+script = SubResource( 5 )
+
+[node name="Head" type="Line2D" parent="Path"]
+points = PoolVector2Array( 3628, 1273 )
+default_color = Color( 1, 1, 1, 1 )
+texture = ExtResource( 4 )
+texture_mode = 2
+
+[node name="Body" type="Line2D" parent="Path"]
+points = PoolVector2Array( 2938, 1123 )
+default_color = Color( 1, 1, 1, 1 )
+gradient = SubResource( 4 )
+texture = ExtResource( 5 )
+texture_mode = 1
+
+[node name="Tail" type="Line2D" parent="Path"]
+default_color = Color( 1, 1, 1, 1 )
+texture = ExtResource( 3 )
+texture_mode = 2

@@ -6,6 +6,7 @@
  * [hrcontainer](./hrcontainer) horizontal ring container, with up or down dragging and selection zoom.
  * [pageflip](./pageflip) flip book pages left or right using a shader.
  * [scene-transition](./scene-transition) very simple scene transition
+ * [path](./path) Curev2D and hexgrid
 
 ### TODO
 
