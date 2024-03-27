@@ -1,95 +1,92 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=10 format=3 uid="uid://dr5b4xdbsyshh"]
 
-[ext_resource path="res://book/00.png" type="Texture" id=1]
-[ext_resource path="res://Book.gd" type="Script" id=2]
-[ext_resource path="res://book/01.png" type="Texture" id=3]
-[ext_resource path="res://pageflip.shader" type="Shader" id=4]
-[ext_resource path="res://alpha.png" type="Texture" id=5]
-[ext_resource path="res://patch.png" type="Texture" id=6]
-[ext_resource path="res://arrow.png" type="Texture" id=9]
-[ext_resource path="res://slider.png" type="Texture" id=10]
+[ext_resource type="Script" path="res://Book.gd" id="2"]
+[ext_resource type="Shader" path="res://pageflip.gdshader" id="3_k3h3m"]
+[ext_resource type="Texture2D" uid="uid://b66ydl514jef6" path="res://book/01.png" id="4_8pu0x"]
+[ext_resource type="Texture2D" uid="uid://bucddmk82mib6" path="res://alpha.png" id="5"]
+[ext_resource type="Texture2D" uid="uid://csxdu8t4q3awg" path="res://book/00.png" id="5_u7vpm"]
+[ext_resource type="Texture2D" uid="uid://cbh11fhece8uk" path="res://patch.png" id="6"]
+[ext_resource type="Texture2D" uid="uid://hbij40ealaue" path="res://arrow.png" id="9"]
+[ext_resource type="Texture2D" uid="uid://ugjb47iyge5c" path="res://slider.png" id="10"]
 
-[sub_resource type="ShaderMaterial" id=1]
-shader = ExtResource( 4 )
-shader_param/time = 0.7
-shader_param/flip_left = true
-shader_param/flip_duration = 2.0
-shader_param/cylinder_ratio = 0.2
-shader_param/cylinder_direction = Vector2( 5, 1 )
-shader_param/rect = Vector2( 700, 870 )
-shader_param/current_page = ExtResource( 3 )
-shader_param/next_page = ExtResource( 1 )
+[sub_resource type="ShaderMaterial" id="1"]
+shader = ExtResource("3_k3h3m")
+shader_parameter/time = 4.0
+shader_parameter/flip_left = true
+shader_parameter/flip_duration = 2.0
+shader_parameter/cylinder_ratio = 0.2
+shader_parameter/cylinder_direction = Vector2(5, 1)
+shader_parameter/rect = Vector2(700, 870)
+shader_parameter/current_page = ExtResource("4_8pu0x")
+shader_parameter/next_page = ExtResource("5_u7vpm")
 
 [node name="Book" type="NinePatchRect"]
+anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -410.0
-margin_top = -242.0
-margin_right = 410.0
-margin_bottom = 242.0
-rect_min_size = Vector2( 820, 470 )
+offset_left = -573.0
+offset_top = -318.0
+offset_right = 577.0
+offset_bottom = 328.0
+grow_horizontal = 2
+grow_vertical = 2
 mouse_filter = 1
-texture = ExtResource( 6 )
+texture = ExtResource("6")
 patch_margin_left = 16
 patch_margin_top = 16
 patch_margin_right = 16
 patch_margin_bottom = 16
-script = ExtResource( 2 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+script = ExtResource("2")
 
 [node name="Clipper" type="Control" parent="."]
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -400.0
-margin_top = -225.0
-margin_right = 400.0
-margin_bottom = 225.0
-rect_clip_content = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = -20.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Page" type="TextureRect" parent="Clipper"]
-material = SubResource( 1 )
+material = SubResource("1")
+layout_mode = 0
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
-texture = ExtResource( 5 )
-expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+texture = ExtResource("5")
+expand_mode = 1
 
 [node name="Slider" type="TextureRect" parent="Clipper"]
+layout_mode = 0
 anchor_bottom = 1.0
-texture = ExtResource( 10 )
-expand = true
-__meta__ = {
-"_edit_use_anchors_": false
-}
+texture = ExtResource("10")
+expand_mode = 1
 
 [node name="Arrow" type="TextureRect" parent="Clipper/Slider"]
-texture = ExtResource( 9 )
+layout_mode = 0
+texture = ExtResource("9")
 
 [node name="Left" type="Control" parent="Clipper"]
+layout_mode = 1
+anchors_preset = 9
 anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+grow_vertical = 2
 
 [node name="Right" type="Control" parent="Clipper"]
+layout_mode = 1
+anchors_preset = 11
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-__meta__ = {
-"_edit_use_anchors_": false
-}
+offset_left = -30.0
+offset_right = -30.0
+grow_horizontal = 0
+grow_vertical = 2
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true

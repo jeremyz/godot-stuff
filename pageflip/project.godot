@@ -6,22 +6,13 @@
 ;   [section] ; section goes between []
 ;   param=value ; assign values to parameters
 
-config_version=4
-
-_global_script_classes=[ {
-"base": "NinePatchRect",
-"class": "Book",
-"language": "GDScript",
-"path": "res://Book.gd"
-} ]
-_global_script_class_icons={
-"Book": "res://Book.png"
-}
+config_version=5
 
 [application]
 
 config/name="Page Flip Shader"
 run/main_scene="res://Main.tscn"
+config/features=PackedStringArray("4.2")
 config/icon="res://icon.png"
 
 [rendering]
