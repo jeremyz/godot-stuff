@@ -1,17 +1,17 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=8 format=3 uid="uid://bqa5pkyarnc2f"]
 
-[ext_resource path="res://map.png" type="Texture" id=1]
-[ext_resource path="res://tail.png" type="Texture" id=3]
-[ext_resource path="res://head.png" type="Texture" id=4]
-[ext_resource path="res://body.png" type="Texture" id=5]
+[ext_resource type="Texture2D" uid="uid://7kbiexwyayy1" path="res://map.png" id="1"]
+[ext_resource type="Texture2D" uid="uid://b6xjndq7rn15y" path="res://tail.png" id="3"]
+[ext_resource type="Texture2D" uid="uid://bxhgftsjdbw2u" path="res://head.png" id="4"]
+[ext_resource type="Texture2D" uid="uid://blxk1yqfkjwgr" path="res://body.png" id="5"]
 
-[sub_resource type="GDScript" id=2]
+[sub_resource type="GDScript" id="GDScript_owgt1"]
 script/source = "extends TextureRect
 
 const offset = Vector2(135,147)
 
 func _ready():
-	var _r = $Reset.connect('pressed', self, '_on_reset')
+	var _r = $Reset.pressed.connect(_on_reset)
 	$Path.bake_interval = 15
 	$Path.width = 66
 
@@ -37,11 +37,11 @@ func _input(event):
 			$Path.add_point(aproximate(event.position))
 "
 
-[sub_resource type="GDScript" id=5]
+[sub_resource type="GDScript" id="GDScript_uqwib"]
 script/source = "extends Node
 
-var bake_interval = 15 setget set_baked
-var width = 66 setget set_width
+var bake_interval = 15 : set = set_baked
+var width = 66 : set = set_width
 
 var n := 0
 var tail : Curve2D = Curve2D.new()
@@ -150,38 +150,53 @@ func _copy(from : Curve2D, fi : int, to : Curve2D, ti : int) -> void:
 #	curve.set_point_in(i + 1, -vf)
 "
 
-[sub_resource type="Gradient" id=4]
+[sub_resource type="Gradient" id="Gradient_0qkox"]
 
-[node name="TextureRect" type="TextureRect"]
-margin_right = 1832.0
-margin_bottom = 1200.0
-texture = ExtResource( 1 )
-script = SubResource( 2 )
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Reset" type="Button" parent="."]
-margin_left = 1690.0
-margin_top = 22.0
-margin_right = 1812.0
-margin_bottom = 91.0
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1")
+expand_mode = 1
+script = SubResource("GDScript_owgt1")
+
+[node name="Reset" type="Button" parent="TextureRect"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -57.0
+offset_top = 8.0
+offset_right = -6.0
+offset_bottom = 39.0
+grow_horizontal = 0
 text = "Reset"
 
-[node name="Path" type="Node" parent="."]
-script = SubResource( 5 )
+[node name="Path" type="Node" parent="TextureRect"]
+script = SubResource("GDScript_uqwib")
 
-[node name="Head" type="Line2D" parent="Path"]
-points = PoolVector2Array( 3628, 1273 )
-default_color = Color( 1, 1, 1, 1 )
-texture = ExtResource( 4 )
+[node name="Head" type="Line2D" parent="TextureRect/Path"]
+points = PackedVector2Array(3628, 1273)
+texture = ExtResource("4")
 texture_mode = 2
 
-[node name="Body" type="Line2D" parent="Path"]
-points = PoolVector2Array( 2938, 1123 )
-default_color = Color( 1, 1, 1, 1 )
-gradient = SubResource( 4 )
-texture = ExtResource( 5 )
+[node name="Body" type="Line2D" parent="TextureRect/Path"]
+points = PackedVector2Array(2938, 1123)
+gradient = SubResource("Gradient_0qkox")
+texture = ExtResource("5")
 texture_mode = 1
 
-[node name="Tail" type="Line2D" parent="Path"]
-default_color = Color( 1, 1, 1, 1 )
-texture = ExtResource( 3 )
+[node name="Tail" type="Line2D" parent="TextureRect/Path"]
+texture = ExtResource("3")
 texture_mode = 2
