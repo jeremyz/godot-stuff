@@ -7,6 +7,7 @@
  * [pageflip](./pageflip) flip book pages left or right using a shader.
  * [scene-transition](./scene-transition) very simple scene transition
  * [path](./path) Curev2D and hexgrid
+ * [shaders](./shaders) shader experiment
 
 ### TODO
 
