@@ -3,3 +3,4 @@
 *.stex
 *.import
 *.godot
+!project.godot
