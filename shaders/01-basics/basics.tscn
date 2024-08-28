@@ -14,6 +14,7 @@
 [ext_resource type="Shader" path="res://01-basics/10-animated-fire.gdshader" id="12_k5pt1"]
 [ext_resource type="Shader" path="res://01-basics/11-death.gdshader" id="13_2a5mt"]
 [ext_resource type="Texture2D" uid="uid://bwi2v8sd0a51q" path="res://godot.svg" id="14_ewuci"]
+[ext_resource type="Shader" path="res://01-basics/outline.gdshader" id="15_2x3oo"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qimbg"]
 shader = ExtResource("2_lrrnr")
@@ -146,6 +147,10 @@ shader = ExtResource("13_2a5mt")
 shader_parameter/noise = SubResource("NoiseTexture2D_r5iyo")
 shader_parameter/gradient = SubResource("GradientTexture1D_nkl6a")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jt700"]
+shader = ExtResource("15_2x3oo")
+shader_parameter/outline_c = Color(1, 0, 0, 1)
+
 [node name="Basics" type="Node2D"]
 
 [node name="01-Data" type="Sprite2D" parent="."]
@@ -201,4 +206,9 @@ texture = ExtResource("1_xrphv")
 [node name="11-Death" type="Sprite2D" parent="."]
 material = SubResource("ShaderMaterial_fgyoa")
 position = Vector2(719, 240)
+texture = ExtResource("14_ewuci")
+
+[node name="12-Outline" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_jt700")
+position = Vector2(880, 240)
 texture = ExtResource("14_ewuci")
