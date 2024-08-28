@@ -1,10 +1,10 @@
-[gd_scene load_steps=40 format=3 uid="uid://dnc45eqcj3gif"]
+[gd_scene load_steps=42 format=3 uid="uid://dnc45eqcj3gif"]
 
-[ext_resource type="Texture2D" uid="uid://v0lh7gniwbhq" path="res://icon.svg" id="1_xrphv"]
+[ext_resource type="Texture2D" uid="uid://6pi4qt1k72j1" path="res://icon.svg" id="1_xrphv"]
 [ext_resource type="Shader" path="res://01-basics/01-data_types.gdshader" id="2_lrrnr"]
 [ext_resource type="Shader" path="res://01-basics/05-mix.gdshader" id="3_88tty"]
 [ext_resource type="Shader" path="res://01-basics/02-step.gdshader" id="4_smkcq"]
-[ext_resource type="Texture2D" uid="uid://bkr1xqsv8r73i" path="res://zebra.jpg" id="4_srybn"]
+[ext_resource type="Texture2D" uid="uid://tlpivxfwl68w" path="res://zebra.jpg" id="4_srybn"]
 [ext_resource type="Shader" path="res://01-basics/03-smoothstep.gdshader" id="5_n0t87"]
 [ext_resource type="Shader" path="res://01-basics/06-breath.gdshader" id="5_yg8nd"]
 [ext_resource type="Shader" path="res://01-basics/04-displace.gdshader" id="6_cvaf2"]
@@ -13,7 +13,7 @@
 [ext_resource type="Shader" path="res://01-basics/09-fire.gdshader" id="11_rqia7"]
 [ext_resource type="Shader" path="res://01-basics/10-animated-fire.gdshader" id="12_k5pt1"]
 [ext_resource type="Shader" path="res://01-basics/11-death.gdshader" id="13_2a5mt"]
-[ext_resource type="Texture2D" uid="uid://ltn1eskxtmn7" path="res://godot.svg" id="14_ewuci"]
+[ext_resource type="Texture2D" uid="uid://bwi2v8sd0a51q" path="res://godot.svg" id="14_ewuci"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qimbg"]
 shader = ExtResource("2_lrrnr")
@@ -55,8 +55,8 @@ noise = SubResource("FastNoiseLite_ldfte")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ngecm"]
 shader = ExtResource("4_smkcq")
-shader_parameter/threshold = 0.461
 shader_parameter/noise = SubResource("NoiseTexture2D_0y2ff")
+shader_parameter/threshold = 0.461
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_1dr44"]
 shader = ExtResource("5_n0t87")
@@ -64,8 +64,8 @@ shader_parameter/noise = SubResource("NoiseTexture2D_0y2ff")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_btig2"]
 shader = ExtResource("6_cvaf2")
-shader_parameter/offset = 0.078
 shader_parameter/noise = SubResource("NoiseTexture2D_0y2ff")
+shader_parameter/offset = 0.078
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_mawqe"]
 shader = ExtResource("3_88tty")
@@ -92,9 +92,9 @@ curve = SubResource("Curve_71d3u")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vamp2"]
 shader = ExtResource("10_xtvgp")
+shader_parameter/anim_graph = SubResource("CurveTexture_j0mwb")
 shader_parameter/columns = 4.0
 shader_parameter/amplitude = 0.2
-shader_parameter/anim_graph = SubResource("CurveTexture_j0mwb")
 
 [sub_resource type="Gradient" id="Gradient_f1bgk"]
 offsets = PackedFloat32Array(0, 0.662539, 1)
@@ -105,12 +105,12 @@ gradient = SubResource("Gradient_f1bgk")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4gfw5"]
 shader = ExtResource("11_rqia7")
+shader_parameter/noise = SubResource("NoiseTexture2D_0y2ff")
+shader_parameter/fire = SubResource("GradientTexture1D_plbca")
 shader_parameter/debug_f = 0.242
 shader_parameter/noise_amplitude = 0.05
 shader_parameter/fire_c_a = Color(1, 1, 0, 1)
 shader_parameter/fire_c_b = Color(1, 0.2, 0, 1)
-shader_parameter/noise = SubResource("NoiseTexture2D_0y2ff")
-shader_parameter/fire = SubResource("GradientTexture1D_plbca")
 
 [sub_resource type="Gradient" id="Gradient_bgj7q"]
 offsets = PackedFloat32Array(0, 0.448916, 1)
@@ -121,9 +121,9 @@ gradient = SubResource("Gradient_bgj7q")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_16jba"]
 shader = ExtResource("12_k5pt1")
-shader_parameter/noise_amplitude = 0.05
 shader_parameter/noise = SubResource("NoiseTexture2D_0y2ff")
 shader_parameter/fire = SubResource("GradientTexture1D_a44y0")
+shader_parameter/noise_amplitude = 0.05
 
 [sub_resource type="Gradient" id="Gradient_wg08h"]
 offsets = PackedFloat32Array(0, 0.854962, 1)
