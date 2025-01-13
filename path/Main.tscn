@@ -8,7 +8,8 @@
 [sub_resource type="GDScript" id="GDScript_owgt1"]
 script/source = "extends TextureRect
 
-const offset = Vector2(135,147)
+const map_size = Vector2(1832.0, 1200.0)
+const offset = Vector2(135.0, 147.0) # center of top left hex
 
 func _ready():
 	var _r = $Reset.pressed.connect(_on_reset)
@@ -17,6 +18,12 @@ func _ready():
 
 func _on_reset() -> void:
 	$Path.reset()
+
+func win2map(v : Vector2):
+	return v / Vector2(DisplayServer.window_get_size()) * map_size
+
+func map2win(v : Vector2):
+	return v / map_size * Vector2(DisplayServer.window_get_size())
 
 func aproximate(v : Vector2) -> Vector2:
 	v -= offset
@@ -34,7 +41,7 @@ func aproximate(v : Vector2) -> Vector2:
 func _input(event):
 	if event is InputEventMouseButton:
 		if not event.is_pressed():
-			$Path.add_point(aproximate(event.position))
+			$Path.add_point(map2win(aproximate(win2map(event.position))))
 "
 
 [sub_resource type="GDScript" id="GDScript_uqwib"]
