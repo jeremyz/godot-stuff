@@ -49,6 +49,7 @@ script/source = "extends Node
 
 var bake_interval = 15 : set = set_baked
 var width = 66 : set = set_width
+var grad_steps = 6.0
 
 var n := 0
 var tail : Curve2D = Curve2D.new()
@@ -130,18 +131,20 @@ func add_point(p : Vector2) -> void:
 		_copy(body, i, head, 0)
 		_copy(body, i + 1, head, 1)
 		$Head.points = head.get_baked_points()
-	set_tail_gradient(body.get_point_count())
+	set_gradient(body.get_point_count())
 
 func _copy(from : Curve2D, fi : int, to : Curve2D, ti : int) -> void:
 	to.set_point_position(ti, from.get_point_position(fi))
 	to.set_point_in(ti, from.get_point_in(fi))
 	to.set_point_out(ti, from.get_point_out(fi))
 
-func set_tail_gradient(n : int):
-	var v := lerpf(1, 0, n/4.0)
+func set_gradient(s : int):
+	if s > grad_steps: return
+	var v : float = lerpf(1, 0, s/grad_steps)
 	var c := Color(v, v, v)
 	$Tail.gradient.set_color(0, c)
 	$Tail.gradient.set_color(1, c)
+	$Body.gradient.set_color(0, c)
 
 #	var i : int = curve.get_point_count() - 1
 #	if i < 0:
