@@ -12,7 +12,7 @@ config_version=5
 
 config/name="shaders"
 run/main_scene="res://01-basics/basics.tscn"
-config/features=PackedStringArray("4.3", "Mobile")
+config/features=PackedStringArray("4.4", "Mobile")
 config/icon="res://icon.svg"
 
 [rendering]
