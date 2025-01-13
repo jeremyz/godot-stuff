@@ -1,7 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://dr5b4xdbsyshh"]
 
-[ext_resource type="Script" path="res://Book.gd" id="2"]
-[ext_resource type="Shader" path="res://pageflip.gdshader" id="3_k3h3m"]
+[ext_resource type="Script" uid="uid://cih2h78xmai7e" path="res://Book.gd" id="2"]
+[ext_resource type="Shader" uid="uid://bu0j3rmjisx0m" path="res://pageflip.gdshader" id="3_k3h3m"]
 [ext_resource type="Texture2D" uid="uid://b66ydl514jef6" path="res://book/01.png" id="4_8pu0x"]
 [ext_resource type="Texture2D" uid="uid://bucddmk82mib6" path="res://alpha.png" id="5"]
 [ext_resource type="Texture2D" uid="uid://csxdu8t4q3awg" path="res://book/00.png" id="5_u7vpm"]
@@ -73,18 +73,15 @@ texture = ExtResource("9")
 
 [node name="Left" type="Control" parent="Clipper"]
 layout_mode = 1
-anchors_preset = 9
 anchor_bottom = 1.0
+grow_horizontal = 2
 grow_vertical = 2
 
 [node name="Right" type="Control" parent="Clipper"]
 layout_mode = 1
-anchors_preset = 11
 anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -30.0
-offset_right = -30.0
 grow_horizontal = 0
 grow_vertical = 2
 

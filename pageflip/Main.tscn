@@ -21,7 +21,6 @@ grow_vertical = 2
 script = SubResource("1")
 
 [node name="Book" parent="." instance=ExtResource("1")]
-visible = false
 layout_mode = 0
 anchors_preset = 0
 anchor_left = 0.0
