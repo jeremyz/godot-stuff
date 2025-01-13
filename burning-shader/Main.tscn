@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://cay8ngrfj8563"]
 
-[ext_resource type="Shader" path="res://burning.gdshader" id="1_rtnj4"]
+[ext_resource type="Shader" uid="uid://rwxd87j4g7al" path="res://burning.gdshader" id="1_rtnj4"]
 [ext_resource type="Texture2D" uid="uid://bfy037a3hgv3w" path="res://alpha.png" id="2_s2gfy"]
 
 [sub_resource type="GDScript" id="GDScript_puenb"]
