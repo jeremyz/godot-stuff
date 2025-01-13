@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://dh5cntbnp70c"]
 
 [ext_resource type="PackedScene" uid="uid://cakslwnhyrndu" path="res://SceneA.tscn" id="1"]
-[ext_resource type="Texture2D" uid="uid://b325yavb5iv5p" path="res://logo.png" id="2"]
+[ext_resource type="Texture2D" uid="uid://dywyqf6wrvk1u" path="res://logo.png" id="2"]
 
 [sub_resource type="GDScript" id="1"]
 script/source = "extends Node
