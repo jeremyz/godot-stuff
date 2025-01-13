@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bqa5pkyarnc2f"]
+[gd_scene load_steps=9 format=3 uid="uid://bqa5pkyarnc2f"]
 
 [ext_resource type="Texture2D" uid="uid://7kbiexwyayy1" path="res://map.png" id="1"]
 [ext_resource type="Texture2D" uid="uid://b6xjndq7rn15y" path="res://tail.png" id="3"]
@@ -130,11 +130,18 @@ func add_point(p : Vector2) -> void:
 		_copy(body, i, head, 0)
 		_copy(body, i + 1, head, 1)
 		$Head.points = head.get_baked_points()
+	set_tail_gradient(body.get_point_count())
 
 func _copy(from : Curve2D, fi : int, to : Curve2D, ti : int) -> void:
 	to.set_point_position(ti, from.get_point_position(fi))
 	to.set_point_in(ti, from.get_point_in(fi))
 	to.set_point_out(ti, from.get_point_out(fi))
+
+func set_tail_gradient(n : int):
+	var v := lerpf(1, 0, n/4.0)
+	var c := Color(v, v, v)
+	$Tail.gradient.set_color(0, c)
+	$Tail.gradient.set_color(1, c)
 
 #	var i : int = curve.get_point_count() - 1
 #	if i < 0:
@@ -158,6 +165,10 @@ func _copy(from : Curve2D, fi : int, to : Curve2D, ti : int) -> void:
 "
 
 [sub_resource type="Gradient" id="Gradient_0qkox"]
+
+[sub_resource type="Gradient" id="Gradient_cm0pq"]
+interpolation_mode = 1
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -205,5 +216,6 @@ texture = ExtResource("5")
 texture_mode = 1
 
 [node name="Tail" type="Line2D" parent="TextureRect/Path"]
+gradient = SubResource("Gradient_cm0pq")
 texture = ExtResource("3")
 texture_mode = 2
